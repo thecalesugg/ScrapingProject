@@ -20,9 +20,7 @@ class MyListener(StreamListener):
 
     def on_data(self, data):
         try:
-            with open('python.json', 'a') as f:
-                f.write(data)
-                return True
+            writer.writerow([data])
         except BaseException as e:
             print("Error on_data: %s" % str(e))
         return True
@@ -33,6 +31,6 @@ class MyListener(StreamListener):
 
 
 twitter_stream = Stream(auth, MyListener())
-twitter_stream.filter(track=['#SBLII'])
+twitter_stream.filter(track=['#DeclarationDays'])
 
 #CSV Stuff
