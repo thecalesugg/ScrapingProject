@@ -1,6 +1,7 @@
 import tweepy
 from tweepy import OAuthHandler
 
+
 import csv
 
 consumer_key = "d02tqSUSADhsK2kV2Rrcj3amq"
@@ -14,12 +15,13 @@ auth.set_access_token(access_token, access_secret)
 api = tweepy.API(auth)
 
 
-csvFile = open('result.csv', 'a')
+csvFile = open('SBLII.csv', 'a')
 
 #Use csv writer
 csvWriter = csv.writer(csvFile)
 
-searchTerm = "#SBLIII"
+#Change the search term to whatever you need to search for
+searchTerm = "#SBLII"
 ticker = 0
 for tweet in tweepy.Cursor(api.search,
                            q = searchTerm,
@@ -29,6 +31,24 @@ for tweet in tweepy.Cursor(api.search,
 
     ticker += 1
     # Write a row to the CSV file. I use encode UTF-8
-    csvWriter.writerow([ticker, searchTerm, tweet.created_at, tweet.in_reply_to_status_id, tweet.retweet_count, tweet.favorite_count, tweet.text.encode('utf-8')])
-    print(ticker, searchTerm, tweet.created_at, tweet.in_reply_to_status_id, tweet.retweet_count, tweet.favorite_count, tweet.text)
+    csvWriter.writerow([ticker,
+                        searchTerm,
+                        tweet.created_at,
+                        tweet.id,
+                        tweet.in_reply_to_status_id,
+                        tweet.retweet_count,
+                        tweet.favorite_count,
+                        tweet.text,
+                        len(tweet.entities.get('hashtags')),
+                        tweet.entities.get('hashtags')])
+    print(ticker,
+          searchTerm,
+          tweet.created_at,
+          tweet.id,
+          tweet.in_reply_to_status_id,
+          tweet.retweet_count,
+          tweet.favorite_count,
+          tweet.text,
+          len(tweet.entities.get('hashtags')),
+          tweet.entities.get('hashtags'))
 csvFile.close()
