@@ -16,11 +16,13 @@ access_secret = "m8MaRmUYF9hos7E56naaeDePWqDCYp5v43ryWZsC7JdKx"
 auth = OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_secret)
 
+api = tweepy.API(auth)
+
 #CSV File Handling
 file = open('SB18.csv','w')
 writer = csv.writer(file, delimiter=',', quoting = csv.QUOTE_MINIMAL)
 
-api = tweepy.API(auth)
+
 
 def process_or_store(tweet):
     print(json.dumps(tweet))
