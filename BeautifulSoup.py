@@ -1,4 +1,4 @@
-#Scrapping Data from Twitter: Super Bowl
+#Beautiful Soup 4
 
 
 #import libraries
@@ -16,6 +16,9 @@ print(soup.title)
 s = soup.find_all('a')
 for i in s:
     print(i.get('href'))
+
+
+
 '''
 name_box = soup.find_all('h1') #attrs={'class': 'companyName'})
 #print(name_box)
